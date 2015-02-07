@@ -1,0 +1,14 @@
+{
+  "name": "minicomi",
+  "description": "A webcomics platform that tries its best to be easy to get going with.",
+  "website": "https://github.com/grampajoe/minicomi",
+  "repository": "https://github.com/grampajoe/minicomi",
+  "success_url": "/",
+  "addons": [],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "comics.production_settings"
+  },
+  "scripts": {
+      "postdeploy": "python manage.py migrate"
+  }
+}
