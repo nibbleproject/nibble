@@ -1,0 +1,12 @@
+box: wercker/python@1.1.0
+
+build:
+  steps:
+    - virtualenv@0.0.5:
+        python_location: /usr/bin/python3.4
+
+    - pip-install@0.0.6
+
+    - script:
+        name: run tests
+        code: python manage.py test
