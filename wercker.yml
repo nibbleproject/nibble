@@ -10,3 +10,15 @@ build:
     - script:
         name: run tests
         code: python manage.py test
+
+    - script:
+        name: create Heroku app
+        code: python wercker/create_heroku_app.py $WERCKER_GIT_COMMIT minicomi-wercker-$WERCKER_MAIN_PIPELINE_STARTED
+
+    - script:
+        name: test Heroku app
+        code: curl http://minicomi-wercker-$WERCKER_MAIN_PIPELINE_STARTED.herokuapp.com
+
+    - script:
+        name: delete Heroku app
+        code: python wercker/delete_heroku_app.py minicomi-wercker-$WERCKER_MAIN_PIPELINE_STARTED
