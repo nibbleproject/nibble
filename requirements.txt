@@ -1,3 +1,5 @@
 Django==1.7.4
 aiohttp==0.14.4
+dj-database-url==0.3.0
 gunicorn==19.2.1
+psycopg2==2.5.4

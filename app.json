@@ -4,7 +4,9 @@
   "website": "https://github.com/grampajoe/minicomi",
   "repository": "https://github.com/grampajoe/minicomi",
   "success_url": "/",
-  "addons": [],
+  "addons": [
+    "heroku-postgresql"
+  ],
   "env": {
     "DJANGO_SETTINGS_MODULE": "comics.production_settings"
   },
