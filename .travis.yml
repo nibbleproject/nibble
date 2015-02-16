@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.4"
+
+branches:
+  only:
+    - master
+
+sudo: false
+
+install:
+  - pip install -r requirements.txt
+  - pip install happy==1.1.0 coverage coveralls pep8
+
+script:
+  - coverage run --source='.' manage.py test
+  - happy up --auth-token $HEROKU_AUTH_TOKEN
+  - curl -f https://`cat .happy`.herokuapp.com
+  - happy down --auth-token $HEROKU_AUTH_TOKEN
+
+after_success: coveralls
