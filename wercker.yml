@@ -6,7 +6,8 @@ build:
         python_location: /usr/bin/python3.4
 
     - pip-install@0.0.6:
-        packages_list: "requests"
+        packages_list:
+          - "happy==1.1.0"
 
     - script:
         name: run tests
@@ -14,7 +15,7 @@ build:
 
     - script:
         name: create Heroku app
-        code: python wercker/create_heroku_app.py $WERCKER_GIT_COMMIT minicomi-wercker-$WERCKER_MAIN_PIPELINE_STARTED
+        code: happy up --auth-token $HEROKU_AUTH_TOKEN
 
     - script:
         name: test Heroku app
@@ -22,4 +23,4 @@ build:
 
     - script:
         name: delete Heroku app
-        code: python wercker/delete_heroku_app.py minicomi-wercker-$WERCKER_MAIN_PIPELINE_STARTED
+        code: happy down --auth-token $HEROKU_AUTH_TOKEN
