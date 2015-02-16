@@ -6,7 +6,11 @@ build:
         python_location: /usr/bin/python3.4
 
     - pip-install@0.0.6:
-        packages_list: "happy==1.1.0 coverage coveralls"
+        packages_list: "happy==1.1.0 coverage coveralls pep8"
+
+    - script:
+        name: run pep8
+        code: pep8 .
 
     - script:
         name: run tests
