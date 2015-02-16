@@ -15,7 +15,7 @@ install:
 script:
   - coverage run --source='.' manage.py test
   - happy up --auth-token $HEROKU_AUTH_TOKEN
-  - curl -f https://`cat .happy`.herokuapp.com
+  - curl -f -I https://`cat .happy`.herokuapp.com
   - happy down --auth-token $HEROKU_AUTH_TOKEN
 
 after_success: coveralls

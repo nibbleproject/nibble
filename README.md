@@ -1,6 +1,6 @@
 # minicomi
 
-[![Wercker](https://img.shields.io/wercker/ci/54d644b20b4e214c4d067369.svg)](https://app.wercker.com/#applications/54d644b20b4e214c4d067369)
+[![Travis](https://img.shields.io/travis/grampajoe/minicomi.svg)](https://travis-ci.org/grampajoe/minicomi)
 [![Coveralls](https://img.shields.io/coveralls/grampajoe/minicomi.svg)](https://coveralls.io/r/grampajoe/minicomi)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/grampajoe/minicomi.svg)](https://scrutinizer-ci.com/g/grampajoe/minicomi/)
 
