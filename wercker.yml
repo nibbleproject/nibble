@@ -8,10 +8,12 @@ build:
     - pip-install@0.0.6:
         packages_list:
           - "happy==1.1.0"
+          - "coverage"
+          - "coveralls"
 
     - script:
         name: run tests
-        code: python manage.py test
+        code: coverage run --source='.' manage.py test
 
     - script:
         name: create Heroku app
@@ -24,3 +26,7 @@ build:
     - script:
         name: delete Heroku app
         code: happy down --auth-token $HEROKU_AUTH_TOKEN
+
+    - script:
+        name: report test coverage to coveralls
+        code: coveralls
