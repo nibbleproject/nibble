@@ -1,5 +1,5 @@
 """
-Django settings for comics project.
+Django settings for minicomi project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'comics'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'comics.urls'
+ROOT_URLCONF = 'minicomi.urls'
 
-WSGI_APPLICATION = 'comics.wsgi.application'
+WSGI_APPLICATION = 'minicomi.wsgi.application'
 
 
 # Database
