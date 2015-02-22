@@ -9,7 +9,7 @@ PASSWORD = os.environ.get('SUPERUSER_PASSWORD', 'butt')
 
 @when(u'I go to the admin page')
 def step_impl(context):
-    context.browser.get(context.admin_url)
+    context.browser.get(context.base_url + '/admin')
 
 
 @when(u'I enter my username and password')
