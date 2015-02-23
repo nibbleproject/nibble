@@ -10,12 +10,22 @@ sudo: false
 
 install:
   - pip install -r requirements.txt
-  - pip install happy==1.1.0 coverage coveralls pep8
+  - pip install happy==1.2.0 coverage coveralls pep8 behave selenium
 
 script:
   - coverage run --source='.' manage.py test
-  - happy up --auth-token $HEROKU_AUTH_TOKEN
-  - curl -f -I https://`cat .happy`.herokuapp.com
-  - happy down --auth-token $HEROKU_AUTH_TOKEN
+  - export HEROKU_APP_NAME="travis-minicomi-$TRAVIS_BUILD_ID"
+  - happy up
+      --auth-token $HEROKU_AUTH_TOKEN
+      --env SUPERUSER_NAME=$SUPERUSER_NAME
+      --env SUPERUSER_PASSWORD=$SUPERUSER_PASSWORD
+      --tarball-url https://github.com/$TRAVIS_REPO_SLUG/tarball/$TRAVIS_COMMIT/
+      $HEROKU_APP_NAME
+  - export MINICOMI_BASE_URL="https://$HEROKU_APP_NAME.herokuapp.com"
+  - behave
+  - happy down
+      --auth-token $HEROKU_AUTH_TOKEN
+      --force
+      $HEROKU_APP_NAME
 
 after_success: coveralls
