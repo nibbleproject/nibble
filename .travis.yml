@@ -15,17 +15,17 @@ install:
 script:
   - coverage run --source='.' manage.py test
   - export HEROKU_APP_NAME="travis-minicomi-$TRAVIS_BUILD_ID"
-  - happy up \
-      --auth-token $HEROKU_AUTH_TOKEN \
-      --env SUPERUSER_NAME=$SUPERUSER_NAME \
-      --env SUPERUSER_PASSWORD=$SUPERUSER_PASSWORD \
-      --tarball-url https://github.com/$TRAVIS_REPO_SLUG/tarball/$TRAVIS_COMMIT/ \
+  - happy up
+      --auth-token $HEROKU_AUTH_TOKEN
+      --env SUPERUSER_NAME=$SUPERUSER_NAME
+      --env SUPERUSER_PASSWORD=$SUPERUSER_PASSWORD
+      --tarball-url https://github.com/$TRAVIS_REPO_SLUG/tarball/$TRAVIS_COMMIT/
       $HEROKU_APP_NAME
   - export MINICOMI_BASE_URL="https://$HEROKU_APP_NAME.herokuapp.com"
   - behave
-  - happy down \
-      --auth-token $HEROKU_AUTH_TOKEN \
-      --force \
+  - happy down
+      --auth-token $HEROKU_AUTH_TOKEN
+      --force
       $HEROKU_APP_NAME
 
 after_success: coveralls
