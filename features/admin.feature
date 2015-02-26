@@ -7,3 +7,9 @@ Feature: Admin account
         When I go to the admin page
         And I enter my username and password
         Then I should be logged in as an admin
+
+    Scenario: email
+        When I go to the admin page
+        And I enter my username and password
+        And I go to my user page
+        Then I should see the email address I chose

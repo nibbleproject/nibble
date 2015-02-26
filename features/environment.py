@@ -18,17 +18,31 @@ def _get_driver():
     else:
         driver = webdriver.Firefox()
 
+    driver.implicitly_wait(3)
+
     return driver
 
 
 def before_all(context):
+    def get_browser():
+        """Only cretae a Selenium driver if we need it."""
+        try:
+            browser = context.browser
+        except AttributeError:
+            browser = context.browser = _get_driver()
+        return browser
+
+    context.get_browser = get_browser
+
     context.base_url = os.environ.get(
         'MINICOMI_BASE_URL',
         'http://localhost:5000',
     )
-    context.browser = _get_driver()
-    context.browser.implicitly_wait(3)
 
 
-def after_all(context):
-    context.browser.quit()
+def after_scenario(context, scenario):
+    try:
+        context.browser.quit()
+        del context.browser
+    except AttributeError:
+        pass

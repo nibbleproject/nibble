@@ -9,17 +9,23 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         username = os.environ['SUPERUSER_NAME']
         password = os.environ['SUPERUSER_PASSWORD']
+        email = os.environ['SUPERUSER_EMAIL']
 
-        superuser, created = User.objects.get_or_create(
+        defaults = {
+            'email': email,
+            'is_superuser': True,
+            'is_staff': True,
+        }
+
+        superuser, created = User.objects.update_or_create(
             username=username,
-            is_superuser=True,
-            is_staff=True,
+            defaults=defaults,
         )
 
-        if created:
-            superuser.set_password(password)
-            superuser.save()
+        superuser.set_password(password)
 
+        if created:
+            superuser.save()
             self.stdout.write('Successfully created superuser %s.' % username)
         else:
-            self.stdout.write('Superuser %s already exists.' % username)
+            self.stdout.write('Superuser %s updated.' % username)
