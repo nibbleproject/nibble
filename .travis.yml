@@ -15,6 +15,7 @@ install:
 script:
   - pep8 .
   - coverage run --source='.' manage.py test
+
   - export HEROKU_APP_NAME="travis-minicomi-$TRAVIS_BUILD_ID"
   - happy up
       --auth-token $HEROKU_AUTH_TOKEN
@@ -23,9 +24,13 @@ script:
       --env SUPERUSER_EMAIL=$SUPERUSER_EMAIL
       --tarball-url https://github.com/$TRAVIS_REPO_SLUG/tarball/$TRAVIS_COMMIT/
       $HEROKU_APP_NAME
-  - .travis/add_domain.sh butt.com
+
+  - export MINICOMI_ALT_DOMAIN="$HEROKU_APP_NAME.joefriedl.net"
+  - .travis/add_domain.sh $MINICOMI_ALT_DOMAIN
+
   - export MINICOMI_BASE_URL="https://$HEROKU_APP_NAME.herokuapp.com"
   - behave
+
   - happy down
       --auth-token $HEROKU_AUTH_TOKEN
       --force
