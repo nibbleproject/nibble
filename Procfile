@@ -1,1 +1,1 @@
-web: gunicorn --workers=2 --worker-class=gaiohttp --bind=0.0.0.0:$PORT minicomi.wsgi
+web: gunicorn --workers=2 --worker-class=gaiohttp --bind=0.0.0.0:$PORT minicomi.wsgi --access-logfile -
