@@ -23,6 +23,7 @@ script:
       --env SUPERUSER_EMAIL=$SUPERUSER_EMAIL
       --tarball-url https://github.com/$TRAVIS_REPO_SLUG/tarball/$TRAVIS_COMMIT/
       $HEROKU_APP_NAME
+  - .travis/add_domain.sh butt.com
   - export MINICOMI_BASE_URL="https://$HEROKU_APP_NAME.herokuapp.com"
   - behave
   - happy down
