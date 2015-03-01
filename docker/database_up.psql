@@ -1,0 +1,3 @@
+-- Create minicomi database and whatever
+
+CREATE DATABASE minicomi WITH ENCODING = 'UTF8';
