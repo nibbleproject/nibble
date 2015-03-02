@@ -31,6 +31,12 @@ elif [ -n "$POSTGRES_PORT_5432_TCP_ADDR" ]; then
     export PGPORT="$POSTGRES_PORT_5432_TCP_PORT"
 
     if [ "$1" = 'start' ]; then
+        while true; do
+            echo 'Checking for postgres connectivity...'
+            psql -c 'select 1;' 2>&1 > /dev/null && break
+            sleep 1
+        done
+
         echo 'Creating user...'
 
         createuser -e \
