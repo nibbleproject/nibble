@@ -2,7 +2,7 @@
 #
 # Usage: test-heroku.sh CURRENT_COMMIT HEROKU_AUTH_TOKEN
 
-HEROKU_AUTH_TOKEN="$1"
+HEROKU_AUTH_TOKEN="$2"
 HEROKU_APP_NAME="ci-minicomi-`date +'%T'`"
 MINICOMI_ALT_DOMAIN="$HEROKU_APP_NAME.joefriedl.net"
 MINICOMI_BASE_URL="https://$HEROKU_APP_NAME.herokuapp.com"
