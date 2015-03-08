@@ -1,0 +1,14 @@
+machine:
+  python:
+    version: 3.4.1
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - pip install -r requirements_test.txt
+
+test:
+  override:
+    - pep8 .
+    - coverage run --source='.' manage.py test
