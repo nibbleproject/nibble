@@ -6,7 +6,8 @@ machine:
 
 dependencies:
   override:
-    - ci/setup.sh
+    - case $CIRCLE_NODE_INDEX in 0) ci/heroku_setup.sh ;; 1) ci/docker_setup.sh ;; 2) ci/python_setup.sh ;; esac:
+        parallel: true
 
 test:
   override:
