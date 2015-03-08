@@ -14,16 +14,15 @@ test:
     - pep8 .
     - coverage run --source='.' manage.py test
 
-    - docker run -d --net=host
-      --name minicomi
+    - docker run -d --name minicomi-postgres postgres
+    - docker run -d
+      --link minicomi-postgres:postgres
       -p 5000:5000
-      -e DATABASE_URL=postgres://ubuntu@localhost:5432/circle_test
+      -e MINICOMI_DATABASE_PASSWORD=butt
       -e SUPERUSER_NAME=$SUPERUSER_NAME
       -e SUPERUSER_PASSWORD=$SUPERUSER_PASSWORD
       -e SUPERUSER_EMAIL=$SUPERUSER_EMAIL
       minicomi
-
-    - docker exec -it minicomi python manage.py minicomi_setup
 
     # Wait for the app to become available
     - while ! curl -I localhost:5000; do sleep 3; done
