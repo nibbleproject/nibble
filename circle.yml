@@ -6,10 +6,10 @@ machine:
 
 dependencies:
   override:
-    - case $CIRCLE_NODE_INDEX in 0) ci/heroku_setup.sh ;; 1) ci/docker_setup.sh ;; 2) ci/python_setup.sh ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) ci/heroku_setup.sh circle-minicomi-$CIRCLE_BUILD_NUM $HEROKU_AUTH_TOKEN ;; 1) ci/docker_setup.sh ;; 2) ci/python_setup.sh ;; esac:
         parallel: true
 
 test:
   override:
-    - case $CIRCLE_NODE_INDEX in 0) ci/heroku_test.sh $CIRCLE_SHA1 $HEROKU_AUTH_TOKEN ;; 1) ci/docker_test.sh ;; 2) ci/python_test.sh ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) ci/heroku_test.sh circle-minicomi-$CIRCLE_BUILD_NUM $CIRCLE_SHA1 $HEROKU_AUTH_TOKEN ;; 1) ci/docker_test.sh ;; 2) ci/python_test.sh ;; esac:
         parallel: true
