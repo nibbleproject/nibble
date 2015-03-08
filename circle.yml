@@ -14,7 +14,7 @@ test:
     - ci/circle_test.sh:
         parallel: true
 
-deploy:
+deployment:
   hub:
     branch: docker
     commands:
