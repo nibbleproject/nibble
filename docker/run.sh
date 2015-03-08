@@ -67,6 +67,10 @@ fi
 
 if [ "$1" = 'start' ];
 then
+    if [ -n "$SUPERUSER_NAME" ]; then
+        python manage.py minicomi_setup
+    fi
+
     python manage.py migrate
 
     exec gunicorn \
