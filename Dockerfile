@@ -7,7 +7,7 @@ ENV MINICOMI_DATABASE_USER=minicomi
 COPY ./requirements.txt /opt/minicomi/requirements.txt
 WORKDIR /opt/minicomi
 
-RUN pip install -r requirements.txt
+RUN apt-get update && apt-get -y install postgresql-client && pip install -r requirements.txt
 
 COPY . /opt/minicomi
 
