@@ -67,7 +67,7 @@ fi
 
 if [ "$1" = 'start' ];
 then
-    python3 manage.py migrate
+    python manage.py migrate
 
     exec gunicorn \
         --workers=2 \

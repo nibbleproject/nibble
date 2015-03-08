@@ -1,18 +1,17 @@
-FROM ubuntu:14.04
-
-COPY ./requirements.txt /opt/minicomi/requirements.txt
-COPY ./docker/install.sh /opt/minicomi/docker/install.sh
-WORKDIR /opt/minicomi
+FROM python:3.4.3
 
 ENV DJANGO_SETTINGS_MODULE=minicomi.settings.production
 ENV MINICOMI_DATABASE_NAME=minicomi
 ENV MINICOMI_DATABASE_USER=minicomi
 
-RUN docker/install.sh
+COPY ./requirements.txt /opt/minicomi/requirements.txt
+WORKDIR /opt/minicomi
+
+RUN pip install -r requirements.txt
 
 COPY . /opt/minicomi
 
-RUN docker/post-install.sh
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 5000
 
