@@ -12,6 +12,8 @@ RUN docker/install.sh
 
 COPY . /opt/minicomi
 
+RUN docker/post-install.sh
+
 EXPOSE 5000
 
 ENTRYPOINT ["docker/run.sh"]
