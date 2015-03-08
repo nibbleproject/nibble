@@ -10,9 +10,5 @@ dependencies:
 
 test:
   override:
-    - case $CIRCLE_NODE_INDEX in
-      0) ci/heroku_test.sh $CIRCLE_SHA1 $HEROKU_AUTH_TOKEN ;;
-      1) ci/docker_test.sh ;;
-      2) ci/python_test.sh ;;
-      esac:
+    - case $CIRCLE_NODE_INDEX in 0) ci/heroku_test.sh $CIRCLE_SHA1 $HEROKU_AUTH_TOKEN ;; 1) ci/docker_test.sh ;; 2) ci/python_test.sh ;; esac:
         parallel: true
