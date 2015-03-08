@@ -6,8 +6,9 @@ machine:
 
 dependencies:
   override:
-    - ci/circle_setup.sh:
-        parallel: true
+    - ci/python_setup.sh
+    - ci/heroku_setup.sh
+    - ci/docker_setup.sh
 
 test:
   override:
