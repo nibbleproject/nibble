@@ -18,4 +18,4 @@ test:
     - docker run -d -p 5000:5000 --link minicomi-postgres:postgres -e MINICOMI_DATABASE_PASSWORD=butt minicomi
 
     # Wait for the app to become available
-    - while nc -q 1 lococalhost 5000; do sleep 3; done
+    - while nc -q 1 localhost 5000; do sleep 3; done
