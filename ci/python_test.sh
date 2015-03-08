@@ -4,3 +4,5 @@
 
 pep8 .
 coverage run --source='.' manage.py test
+
+coveralls
