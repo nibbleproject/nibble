@@ -1,6 +1,7 @@
 FROM ubuntu:14.04
 
-COPY . /opt/minicomi
+COPY ./requirements.txt /opt/minicomi/requirements.txt
+COPY ./docker/install.sh /opt/minicomi/docker/install.sh
 WORKDIR /opt/minicomi
 
 ENV DJANGO_SETTINGS_MODULE=minicomi.settings.production
@@ -8,6 +9,8 @@ ENV MINICOMI_DATABASE_NAME=minicomi
 ENV MINICOMI_DATABASE_USER=minicomi
 
 RUN docker/install.sh
+
+COPY . /opt/minicomi
 
 EXPOSE 5000
 
