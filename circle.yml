@@ -19,3 +19,5 @@ test:
 
     # Wait for the app to become available
     - while nc -q 1 localhost 5000; do sleep 3; done
+
+    - MINICOMI_BASE_URL='http://localhost:5000' behave
