@@ -6,19 +6,10 @@ machine:
 
 dependencies:
   override:
-    - ci/python_setup.sh
-    - ci/heroku_setup.sh $CIRCLE_SHA1 circle-minicomi-$CIRCLE_BUILD_NUM $HEROKU_AUTH_TOKEN
-    - ci/docker_setup.sh
+    - ci/circle_setup.sh:
+        parallel: true
 
 test:
   override:
     - ci/circle_test.sh:
         parallel: true
-
-deployment:
-  hub:
-    branch: docker
-    commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - docker tag minicomi grampajoe/minicomi
-      - docker push grampajoe/minicomi
