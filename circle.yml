@@ -1,0 +1,18 @@
+machine:
+  python:
+    version: 3.4.1
+  services:
+    - docker
+
+dependencies:
+  override:
+    - ci/circle_setup.sh:
+        parallel: true
+
+test:
+  override:
+    - ci/circle_test.sh:
+        parallel: true
+  post:
+    - ci/circle_teardown.sh:
+        parallel: true

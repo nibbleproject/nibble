@@ -1,0 +1,10 @@
+web:
+  image: grampajoe/minicomi
+  environment:
+    - MINICOMI_DATABASE_PASSWORD
+  links:
+    - postgres
+  ports:
+    - "5000:5000"
+postgres:
+  image: postgres
