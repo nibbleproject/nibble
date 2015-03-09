@@ -7,7 +7,7 @@ machine:
 dependencies:
   override:
     - ci/python_setup.sh
-    - ci/heroku_setup.sh
+    - ci/heroku_setup.sh $CIRCLE_SHA1 circle-minicomi-$CIRCLE_BUILD_NUM $HEROKU_AUTH_TOKEN
     - ci/docker_setup.sh
 
 test:
