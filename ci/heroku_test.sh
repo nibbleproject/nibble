@@ -2,8 +2,10 @@
 #
 # Usage: test-heroku.sh APP_NAME HEROKU_AUTH_TOKEN
 
-HEROKU_AUTH_TOKEN="$2"
+set -e
+
 HEROKU_APP_NAME="$1"
+HEROKU_AUTH_TOKEN="$2"
 export MINICOMI_ALT_DOMAIN="$HEROKU_APP_NAME.joefriedl.net"
 export MINICOMI_BASE_URL="https://$HEROKU_APP_NAME.herokuapp.com"
 
@@ -13,9 +15,3 @@ export SUPERUSER_EMAIL='minicomi+test@joefriedl.net'
 
 # Run integration tests
 behave
-
-# Destroy the Heroku app
-happy down \
-    --auth-token $HEROKU_AUTH_TOKEN \
-    --force \
-    $HEROKU_APP_NAME

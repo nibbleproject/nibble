@@ -13,3 +13,6 @@ test:
   override:
     - ci/circle_test.sh:
         parallel: true
+  post:
+    - ci/circle_teardown.sh:
+        parallel: true
