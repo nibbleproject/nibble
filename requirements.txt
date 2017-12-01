@@ -1,6 +1,7 @@
-Django==1.7.4
+Django==1.11.7
 aiohttp==0.14.4
 dj-database-url==0.3.0
 gunicorn==19.2.1
 psycopg2==2.5.4
 whitenoise==1.0.6
+behave-django==1.0.0

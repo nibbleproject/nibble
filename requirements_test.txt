@@ -1,7 +1,8 @@
 happy==1.2.0
 coverage
 coveralls
-pep8
-behave
+pycodestyle
+splinter[django]
 selenium
 requests
+behave_django

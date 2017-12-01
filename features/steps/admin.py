@@ -1,50 +1,60 @@
-import os
+from behave import when, then, given
 
-from behave import given, when, then
+from django.contrib.auth.models import User
 
 
-USERNAME = os.environ.get('SUPERUSER_NAME', 'grampajoe')
-PASSWORD = os.environ.get('SUPERUSER_PASSWORD', 'butt')
-EMAIL = os.environ.get('SUPERUSER_EMAIL', 'butt@joefriedl.net')
+ADMIN_USERNAME = 'test'
+ADMIN_PASSWORD = 'test'
+ADMIN_EMAIL = 'test@example.com'
+
+
+@given(u'an admin user exists')
+def create_user(context):
+    context.admin = User.objects.create_user(
+        username=ADMIN_USERNAME,
+        password=ADMIN_PASSWORD,
+        email=ADMIN_EMAIL,
+        is_staff=True,
+        is_superuser=True,
+    )
 
 
 @when(u'I go to the admin page')
 def step_impl(context):
-    context.get_browser().get(context.base_url + '/admin')
+    context.get_browser().visit(context.base_url + '/admin')
 
 
 @when(u'I enter my username and password')
 def step_impl(context):
     browser = context.get_browser()
-    username = browser.find_element_by_name('username')
-    password = browser.find_element_by_name('password')
-    username.send_keys(USERNAME)
-    password.send_keys(PASSWORD)
 
-    password.submit()
+    browser.find_by_name('username').fill(ADMIN_USERNAME)
+    browser.find_by_name('password').fill(ADMIN_PASSWORD)
+    browser.find_by_value('Log in').first.click()
 
 
 @when(u'I go to my user page')
 def step_impl(context):
     browser = context.get_browser()
-    section_link = browser.find_element_by_link_text('Users')
-    section_link.click()
-    page_link = browser.find_element_by_link_text(USERNAME)
-    page_link.click()
+
+    browser.click_link_by_text('Users')
+    browser.click_link_by_text(ADMIN_USERNAME)
 
 
 @then(u'I should be logged in as an admin')
 def step_impl(context):
     browser = context.get_browser()
-    page_text = browser.find_element_by_tag_name('body').text
 
-    assert 'Django administration' in page_text
-    assert 'Welcome, %s.' % USERNAME in page_text
+    page_text = browser.find_by_tag('body').first.text
+
+    assert browser.is_text_present('Django administration')
+    assert browser.is_text_present(
+        'Welcome, {}.'.format(ADMIN_USERNAME).upper()
+    )
 
 
 @then(u'I should see the email address I chose')
 def step_impl(context):
     browser = context.get_browser()
-    email_field = browser.find_element_by_name('email')
 
-    assert EMAIL in email_field.get_attribute('value')
+    assert ADMIN_EMAIL in browser.find_by_name('email').first.value
