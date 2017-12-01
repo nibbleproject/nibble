@@ -9,7 +9,7 @@ export SUPERUSER_NAME=minicomi
 export SUPERUSER_PASSWORD=minicomi
 export SUPERUSER_EMAIL='minicomi+test@joefriedl.net'
 
-pip install -r requirements_test.txt
+pip install -r requirements-test.txt
 
 # Create a Heroku app
 happy up \
