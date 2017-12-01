@@ -1,4 +1,4 @@
-FROM python:3.4.3
+FROM python:3.6.3
 
 ENV DJANGO_SETTINGS_MODULE=minicomi.settings.production
 ENV MINICOMI_DATABASE_NAME=minicomi
