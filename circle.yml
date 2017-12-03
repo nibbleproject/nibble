@@ -12,7 +12,7 @@ jobs:
             pip install -r requirements-test.txt
       - run:
           name: Run tests
-          command: make test
+          command: CI=true make test
 
 
 workflows:
