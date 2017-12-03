@@ -4,8 +4,6 @@
 
 set -e
 
-pip install -r requirements_test.txt
-
 docker build -t minicomi .
 
 DOCKER_IP="$1"

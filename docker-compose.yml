@@ -1,5 +1,5 @@
 web:
-  image: grampajoe/minicomi
+  build: .
   environment:
     - MINICOMI_DATABASE_PASSWORD
   links:

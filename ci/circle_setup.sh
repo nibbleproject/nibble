@@ -2,6 +2,12 @@
 #
 # Usage: circle_setup.sh
 
+# Install geckodriver
+curl -L https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz > geckodriver.tar.gz
+tar -zxvf geckodriver.tar.gz
+chmod +x geckodriver
+export PATH=$PATH:$(pwd)
+
 case $CIRCLE_NODE_INDEX in
     1)
         ci/heroku_setup.sh \

@@ -1,18 +1,22 @@
-machine:
-  python:
-    version: 3.4.1
-  services:
-    - docker
+version: 2
+jobs:
+  test:
+    docker:
+      - image: grampajoe/minicomi-ci
+    steps:
+      - checkout
+      - run:
+          name: Install requirements
+          command: |
+            pip install -r requirements.txt
+            pip install -r requirements-test.txt
+      - run:
+          name: Run tests
+          command: CI=true make test
 
-dependencies:
-  override:
-    - ci/circle_setup.sh:
-        parallel: true
 
-test:
-  override:
-    - ci/circle_test.sh:
-        parallel: true
-  post:
-    - ci/circle_teardown.sh:
-        parallel: true
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
