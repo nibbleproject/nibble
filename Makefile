@@ -1,4 +1,4 @@
-.PHONY: test docker-setup docker-run functional-test
+.PHONY: test docker-setup docker-run functional-test docs
 
 MINICOMI_DATABASE_PASSWORD ?= test
 REMOTE_URL ?= http://localhost:5000
@@ -25,3 +25,6 @@ test: lint unit-test functional-test
 
 smoke:
 	REMOTE_URL=$(REMOTE_URL) python manage.py behave features/smoke.feature 
+
+docs:
+	cd docs/; make html
