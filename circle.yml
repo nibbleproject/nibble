@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Deploy to staging
           command: |
-            heroku git:remote --app nibbleproject-staging
+            heroku git:remote --app nibbleproject-staging --ssh-git
             git push heroku master
   deploy_production:
     docker:
@@ -62,7 +62,7 @@ jobs:
       - run:
           name: Deploy to production
           command: |
-            heroku git:remote --app nibbleproject-staging
+            heroku git:remote --app nibbleproject-staging --ssh-git
             heroku pipelines:promote
 
 workflows:
