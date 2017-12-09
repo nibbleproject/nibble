@@ -1,14 +1,14 @@
 {
-  "name": "minicomi",
+  "name": "nibble",
   "description": "A webcomics platform that tries its best to be easy to get going with.",
-  "website": "https://github.com/grampajoe/minicomi",
-  "repository": "https://github.com/grampajoe/minicomi",
+  "website": "https://nibbleproject.com",
+  "repository": "https://github.com/nibbleproject/nibble",
   "success_url": "/",
   "addons": [
     "heroku-postgresql"
   ],
   "env": {
-    "DJANGO_SETTINGS_MODULE": "minicomi.settings.production",
+    "DJANGO_SETTINGS_MODULE": "nibble.settings.production",
     "SUPERUSER_NAME": {
         "description": "Username for the initial superuser."
     },
@@ -20,6 +20,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "python manage.py migrate && python manage.py minicomi_setup"
+    "postdeploy": "python manage.py migrate && python manage.py nibble_setup"
   }
 }
