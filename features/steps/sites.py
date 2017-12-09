@@ -4,7 +4,7 @@ import requests
 from behave import when, then
 
 
-ALT_DOMAIN = os.environ.get('MINICOMI_ALT_DOMAIN', 'butt.com')
+ALT_DOMAIN = os.environ.get('ALT_DOMAIN', 'butt.com')
 
 
 @when(u'I go to the site on a different domain')

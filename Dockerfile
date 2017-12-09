@@ -1,15 +1,15 @@
 FROM python:3.6.3
 
-ENV DJANGO_SETTINGS_MODULE=minicomi.settings.production
-ENV MINICOMI_DATABASE_NAME=minicomi
-ENV MINICOMI_DATABASE_USER=minicomi
+ENV DJANGO_SETTINGS_MODULE=nibble.settings.production
+ENV DATABASE_NAME=nibble
+ENV DATABASE_USER=test
 
-COPY ./requirements.txt /opt/minicomi/requirements.txt
-WORKDIR /opt/minicomi
+COPY ./requirements.txt /app/requirements.txt
+WORKDIR /app/
 
 RUN apt-get update && apt-get -y install postgresql-client && pip install -r requirements.txt
 
-COPY . /opt/minicomi
+COPY . /app/
 
 RUN python manage.py collectstatic --noinput
 

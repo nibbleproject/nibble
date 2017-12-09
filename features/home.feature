@@ -5,4 +5,4 @@ Feature: The home page
 
     Scenario: title
         When I go to the home page
-        Then I should see "Minicomi" in the title
+        Then I should see "Nibble" in the title

@@ -1,5 +1,5 @@
 """
-Django settings for minicomi project.
+Django settings for nibble project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.11/topics/settings/
@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1yu+bg-skkcqy@wu$lnzf+1*z5e+vc#v)((5)@#g%&cl(&80dx'
+SECRET_KEY = os.environ('SECRET_KEY', 'please-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,9 +60,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'minicomi.urls'
+ROOT_URLCONF = 'nibble.urls'
 
-WSGI_APPLICATION = 'minicomi.wsgi.application'
+WSGI_APPLICATION = 'nibble.wsgi.application'
 
 
 # Database

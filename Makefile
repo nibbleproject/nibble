@@ -1,11 +1,11 @@
 .PHONY: test docker-setup docker-run functional-test docs
 
-MINICOMI_DATABASE_PASSWORD ?= test
+DATABASE_PASSWORD ?= test
 REMOTE_URL ?= http://localhost:5000
 
 docker-setup:
 	docker-compose build
-	MINICOMI_DATABASE_PASSWORD=$(MINICOMI_DATABASE_PASSWORD) \
+	DATABASE_PASSWORD=$(DATABASE_PASSWORD) \
 		docker-compose run web python manage.py migrate
 
 docker-run:
