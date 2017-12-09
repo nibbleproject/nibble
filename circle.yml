@@ -17,6 +17,7 @@ jobs:
     docker:
       - image: nibbleproject/nibble-ci
     steps:  
+      - checkout
       - run:
           name: Report Coverage
           command: 
@@ -32,11 +33,11 @@ jobs:
             cat > ~/.netrc << EOF
             machine api.heroku.com
               login $HEROKU_LOGIN
-              password $HEROKU_API_KEY
+              password $HEROKU_AUTH_TOKEN
             EOF
       - add_ssh_keys:
           fingerprints:
-            - ""
+            - "61:66:4f:6c:6a:a6:1b:c3:18:18:04:2a:32:d0:b3:79"
       - run:
           name: Deploy to staging
           command: |
@@ -57,7 +58,7 @@ jobs:
             EOF
       - add_ssh_keys:
           fingerprints:
-            - ""
+            - "61:66:4f:6c:6a:a6:1b:c3:18:18:04:2a:32:d0:b3:79"
       - run:
           name: Deploy to production
           command: |
