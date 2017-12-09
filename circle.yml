@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: grampajoe/minicomi-ci
+      - image: nibbleproject/nibble-ci
     steps:
       - checkout
       - run:
@@ -13,10 +13,70 @@ jobs:
       - run:
           name: Run tests
           command: CI=true make test
-
+      - run:
+          name: Report Coverage
+          command: 
+            coveralls
+  deploy_staging:
+    steps:
+      - checkout
+      - run:
+          name: Configure Heroku
+          command: |
+            cat > ~/.netrc << EOF
+            machine api.heroku.com
+              login $HEROKU_LOGIN
+              password $HEROKU_API_KEY
+            EOF
+      - add_ssh_keys:
+          fingerprints:
+            - ""
+      - run:
+          name: Deploy to staging
+          command: |
+            heroku git:remote --app $HEROKU_APP_NAME
+            git push heroku master
+  deploy_production:
+    steps:
+      - checkout
+      - run:
+          name: Configure Heroku
+          command: |
+            cat > ~/.netrc << EOF
+            machine api.heroku.com
+              login $HEROKU_LOGIN
+              password $HEROKU_API_KEY
+            EOF
+      - add_ssh_keys:
+          fingerprints:
+            - ""
+      - run:
+          name: Deploy to production
+          command: |
+            heroku git:remote --app $HEROKU_APP_NAME
+            heroku pipelines:promote
 
 workflows:
   version: 2
-  test:
+  master:
     jobs:
       - test
+      - deploy_staging:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - hold:
+          type: approval
+          requires:
+            - deploy_staging
+          filters:
+            branches:
+              only: master
+      - deploy_production:
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master
