@@ -1,6 +1,6 @@
 # nibble
 
-[![Travis](https://img.shields.io/travis/nibbleproject/nibble.svg)](https://travis-ci.org/nibbleproject/nibble)
+[![CircleCI](https://circleci.com/gh/nibbleproject/nibble/tree/master.svg?style=svg)](https://circleci.com/gh/nibbleproject/nibble/tree/master)
 [![Coveralls](https://img.shields.io/coveralls/nibbleproject/nibble.svg)](https://coveralls.io/r/nibbleproject/nibble)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/nibbleproject/nibble.svg)](https://scrutinizer-ci.com/g/nibbleproject/nibble/)
 [![Known Vulnerabilities](https://snyk.io/test/github/nibbleproject/nibble/badge.svg)](https://snyk.io/test/github/nibbleproject/nibble)
