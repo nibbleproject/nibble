@@ -12,7 +12,7 @@ docker-run:
 	docker-compose up
 
 lint:
-	pycodestyle .
+	pycodestyle . --exclude=docs
 
 unit-test:
 	coverage run --source='.' manage.py test
