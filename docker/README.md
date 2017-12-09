@@ -1,7 +1,7 @@
 # Running with Docker
 
-Minicomi is available as a Docker image from the public Docker registry as
-`grampajoe/minicomi`.
+Nibble is available as a Docker image from the public Docker registry as
+`nibbleproject/nibble`.
 
 ## Environment
 
@@ -10,11 +10,11 @@ Minicomi is available as a Docker image from the public Docker registry as
   i.e. the database host, port, name, user, and password.
   The URL follows the schema described in the
   [`dj-database-url` docs](https://github.com/kennethreitz/dj-database-url#url-schema).
-- `MINICOMI_DATABASE_NAME` - Name of the database used by the app. Defaults to
-  `minicomi`. Only required if linking to a database container.
-- `MINICOMI_DATABASE_USER` - Name of the database user used by the app.
-  Defaults to `minicomi`. Only required if linking to a database container.
-- `MINICOMI_DATABASE_PASSWORD` - Name of the database user used by the app.
+- `DATABASE_NAME` - Name of the database used by the app. Defaults to
+  `nibble`. Only required if linking to a database container.
+- `DATABASE_USER` - Name of the database user used by the app.
+  Defaults to `test`. Only required if linking to a database container.
+- `DATABASE_PASSWORD` - Name of the database user used by the app.
   Only required if linking to a database container.
 
 ## Database
@@ -29,27 +29,26 @@ variable, following the schema described in the
 [`dj-database-url` docs](https://github.com/kennethreitz/dj-database-url#url-schema).
 
 ```bash
-$ docker run -d -e DATABASE_URL=postgres://user:pass@host:5432/dbname minicomi
+$ docker run -d -e DATABASE_URL=postgres://user:pass@host:5432/dbname web
 ```
 
 ### Linked
 
-Minicomi supports linking to the official `postgres` Docker image, and will
+Nibble supports linking to the official `postgres` Docker image, and will
 automatically discover the address, port, root username, and root password
 based on the linked container's environment. The container must be linked as
 `postgres` to enable autodiscovery.
 
 When linking to a database container, you *must* provide the
-`MINICOMI_DATABASE_PASSWORD` environemnt variable to initialize the database
+`DATABASE_PASSWORD` environemnt variable to initialize the database
 user.
 
 ```bash
-$ docker run -d --name minicomi-postgres postgres
-$ docker run -d --link minicomi-postgres:postgres \
-    -e MINICOMI_DATABASE_PASSWORD=butt minicomi
+$ docker run -d --name postgres postgres
+$ docker run -d --link postgres:postgres \
+    -e DATABASE_PASSWORD=butt web
 ```
 
-This will initialize a database with the name `minicomi`, belonging to a user
-named `minicomi` with the password `butt`. The user and database names can be
-changed with `MINICOMI_DATABASE_USER` and `MINICOMI_DATABASE_NAME`,
-respectively.
+This will initialize a database with the name `nibble`, belonging to a user
+named `test` with the password `butt`. The user and database names can be
+changed with `DATABASE_USER` and `DATABASE_NAME`, respectively.

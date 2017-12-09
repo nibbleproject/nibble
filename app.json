@@ -1,25 +1,29 @@
 {
-  "name": "minicomi",
+  "name": "nibble",
   "description": "A webcomics platform that tries its best to be easy to get going with.",
-  "website": "https://github.com/grampajoe/minicomi",
-  "repository": "https://github.com/grampajoe/minicomi",
+  "website": "https://nibbleproject.com",
+  "repository": "https://github.com/nibbleproject/nibble",
   "success_url": "/",
   "addons": [
     "heroku-postgresql"
   ],
   "env": {
-    "DJANGO_SETTINGS_MODULE": "minicomi.settings.production",
+    "DJANGO_SETTINGS_MODULE": "nibble.settings.production",
     "SUPERUSER_NAME": {
-        "description": "Username for the initial superuser."
+      "description": "Username for the initial superuser."
     },
     "SUPERUSER_EMAIL": {
-        "description": "Email for the initial superuser."
+      "description": "Email for the initial superuser."
     },
     "SUPERUSER_PASSWORD": {
-        "description": "Password for the initial superuser."
+      "description": "Password for the initial superuser."
+    },
+    "SECRET_KEY": {
+      "description": "Key for encrypting cookies.",
+      "generator": "secret"
     }
   },
   "scripts": {
-    "postdeploy": "python manage.py migrate && python manage.py minicomi_setup"
+    "postdeploy": "python manage.py migrate && python manage.py nibble_setup"
   }
 }

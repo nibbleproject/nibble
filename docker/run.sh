@@ -10,7 +10,7 @@ then
 
 		echo 'We got postgres!!!!'
 
-		if [ -z "$MINICOMI_DATABASE_PASSWORD" ]; then
+		if [ -z "$DATABASE_PASSWORD" ]; then
 			echo 'No application database password defined. Stopping.'
 			exit 1
 		fi
@@ -42,25 +42,25 @@ then
 			echo 'Creating user...'
 
 			createuser -e \
-				$MINICOMI_DATABASE_USER
+				$DATABASE_USER
 
 			echo 'Creating database...'
 			createdb -e \
 				-E UTF8 \
-				$MINICOMI_DATABASE_NAME
+				$DATABASE_NAME
 
 			echo 'Setting password...'
 			psql \
-				-c "ALTER USER $MINICOMI_DATABASE_USER PASSWORD '$MINICOMI_DATABASE_PASSWORD';"
+				-c "ALTER USER $DATABASE_USER PASSWORD '$DATABASE_PASSWORD';"
 
 			echo 'Setting permissions...'
 			psql -e \
-				-c "GRANT ALL ON DATABASE $MINICOMI_DATABASE_NAME TO $MINICOMI_DATABASE_USER;"
+				-c "GRANT ALL ON DATABASE $DATABASE_NAME TO $DATABASE_USER;"
 
 			echo 'Database setup complete!'
 		fi
 
-		export DATABASE_URL="postgres://$MINICOMI_DATABASE_USER:$MINICOMI_DATABASE_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/$MINICOMI_DATABASE_NAME"
+		export DATABASE_URL="postgres://$DATABASE_USER:$DATABASE_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/$DATABASE_NAME"
 
 	else
 		echo 'No database ¯\_(ツ)_/¯'
@@ -70,7 +70,7 @@ then
     python manage.py migrate
 
     if [ -n "$SUPERUSER_NAME" ]; then
-        python manage.py minicomi_setup
+        python manage.py nibble_setup
     fi
 
     exec gunicorn \
@@ -78,7 +78,7 @@ then
         --worker-class=gaiohttp \
         --access-logfile - \
         --bind=0.0.0.0:5000 \
-        minicomi.wsgi
+        nibble.wsgi
 else
     exec "$@"
 fi

@@ -1,5 +1,5 @@
 """
-WSGI config for minicomi project.
+WSGI config for nibble project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -12,6 +12,6 @@ from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "minicomi.settings.base")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nibble.settings.base")
 
 application = DjangoWhiteNoise(get_wsgi_application())

@@ -1,7 +1,7 @@
 web:
   build: .
   environment:
-    - MINICOMI_DATABASE_PASSWORD
+    - DATABASE_PASSWORD
   links:
     - postgres
   ports:

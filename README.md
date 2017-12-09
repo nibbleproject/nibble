@@ -1,9 +1,9 @@
-# minicomi
+# nibble
 
-[![Travis](https://img.shields.io/travis/grampajoe/minicomi.svg)](https://travis-ci.org/grampajoe/minicomi)
-[![Coveralls](https://img.shields.io/coveralls/grampajoe/minicomi.svg)](https://coveralls.io/r/grampajoe/minicomi)
-[![Scrutinizer](https://img.shields.io/scrutinizer/g/grampajoe/minicomi.svg)](https://scrutinizer-ci.com/g/grampajoe/minicomi/)
-[![Known Vulnerabilities](https://snyk.io/test/github/grampajoe/minicomi/badge.svg)](https://snyk.io/test/github/grampajoe/minicomi)
+[![Travis](https://img.shields.io/travis/nibbleproject/nibble.svg)](https://travis-ci.org/nibbleproject/nibble)
+[![Coveralls](https://img.shields.io/coveralls/nibbleproject/nibble.svg)](https://coveralls.io/r/nibbleproject/nibble)
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/nibbleproject/nibble.svg)](https://scrutinizer-ci.com/g/nibbleproject/nibble/)
+[![Known Vulnerabilities](https://snyk.io/test/github/nibbleproject/nibble/badge.svg)](https://snyk.io/test/github/nibbleproject/nibble)
 
 A webcomics platform that tries its best to be easy to get going with.
 
@@ -11,7 +11,7 @@ A webcomics platform that tries its best to be easy to get going with.
 
 Publishing a webcomic can be frustrating, especially for the technology-averse. Many publishing platforms are built for blogs, leading to awkward translations between the blog and webcomic models that can lead to confusion and compromise.
 
-Minicomi aims to be a friendly platform tailor-made for webcomics with the option to self-host.
+Nibble aims to be a friendly platform tailor-made for webcomics with the option to self-host.
 
 The project's core principles are:
 
@@ -55,7 +55,7 @@ group.
 
 ### Stage 3: Release
 
-Once the kinks are worked out, Minicomi will be ready for general availability! We'll open up registration to the
+Once the kinks are worked out, Nibble will be ready for general availability! We'll open up registration to the
 hosted instance, provide some sort of support to self-hosters, and have a huge Internet party.
 
 We could call this stage "Beta", but everything on the Internet is always in Beta.
