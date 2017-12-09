@@ -10,13 +10,17 @@
   "env": {
     "DJANGO_SETTINGS_MODULE": "nibble.settings.production",
     "SUPERUSER_NAME": {
-        "description": "Username for the initial superuser."
+      "description": "Username for the initial superuser."
     },
     "SUPERUSER_EMAIL": {
-        "description": "Email for the initial superuser."
+      "description": "Email for the initial superuser."
     },
     "SUPERUSER_PASSWORD": {
-        "description": "Password for the initial superuser."
+      "description": "Password for the initial superuser."
+    },
+    "SECRET_KEY": {
+      "description": "Key for encrypting cookies.",
+      "generator": "secret"
     }
   },
   "scripts": {
