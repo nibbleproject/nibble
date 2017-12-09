@@ -13,6 +13,10 @@ jobs:
       - run:
           name: Run tests
           command: CI=true make test
+  coverage:
+    docker:
+      - image: nibbleproject/nibble-ci
+    steps:  
       - run:
           name: Report Coverage
           command: 
@@ -65,6 +69,12 @@ workflows:
   master:
     jobs:
       - test
+      - coverage:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
       - deploy_staging:
           requires:
             - test
