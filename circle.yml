@@ -13,11 +13,18 @@ jobs:
       - run:
           name: Run tests
           command: CI=true make test
+      - save_cache:
+          key: coverage-{{ .Revision }}
+          paths:
+            - .coverage
   coverage:
     docker:
       - image: nibbleproject/nibble-ci
     steps:  
       - checkout
+      - restore_cache:
+          keys:
+            - coverage-{{ .Revision }}
       - run:
           name: Report Coverage
           command: 
