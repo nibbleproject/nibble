@@ -5,3 +5,5 @@ db.sqlite3
 ci.db
 server.log
 geckodriver*
+
+docs/build/
