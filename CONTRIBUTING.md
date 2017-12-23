@@ -35,9 +35,10 @@ yourself:
 
 Nibble documentation is built with Sphinx.
 
-1. Make changes to files in `/docs/source`.
+1. Make changes to files in `docs/source`.
 
-2. Run `make docs` in the project's root directory.
+2. Run `make docs` in the project's root directory and make sure everything
+   looks good. You'll find the generated html in `docs/build/html`.
 
 3. Commit your changes to a new branch.
 
