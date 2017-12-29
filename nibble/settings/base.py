@@ -27,6 +27,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -45,9 +46,15 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'behave_django',
-    'comics'
+    'accounts',
+    'comics',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,3 +98,16 @@ STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = (
 )
+
+
+# Authentication
+SITE_ID = 1
+
+LOGIN_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/accounts/confirm/'
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
