@@ -103,8 +103,7 @@ STATICFILES_DIRS = (
 # Authentication
 SITE_ID = 1
 
-LOGIN_URL = '/dashboard/'
-LOGIN_REDIRECT_URL = '/accounts/confirm/'
+LOGIN_REDIRECT_URL = '/dashboard/'
 
 ACCOUNT_EMAIL_REQUIRED = True
 

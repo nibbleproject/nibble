@@ -92,19 +92,14 @@ def step_impl(context):
     assert len(mail.outbox) == 1
 
 
-@then(r'I should see the email confirmation notice')
-def step_impl(context):
-    assert context.get_browser().is_text_present('confirm your email')
-
-
 @then(r'my email should be confirmed')
 def step_impl(context):
     EmailAddress.objects.filter(user=context.user, verified=True).exists()
 
 
-@then(r'I should be taken to the dashboard')
-def step_impl(context):
-    assert context.get_browser().url.endswith('/dashboard/')
+@then(r'I should be taken to {url}')
+def step_impl(context, url):
+    assert context.get_browser().url.endswith(url)
 
 
 @then(r'I should see a message saying "{text}"')

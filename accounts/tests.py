@@ -47,16 +47,16 @@ class SignupTests(AccountTestCase):
         self.assertGreater(len(response.context['form'].errors['email']), 0)
 
     def test_create_confirm_redirect(self):
-        """Creating an account should redirect to the confirm email dialog."""
+        """Creating an account should redirect to the dashboard."""
         response = self._create_new_account()
 
-        self.assertRedirects(response, '/accounts/confirm/')
+        self.assertRedirects(response, '/dashboard/')
 
 
 class LoginTests(AccountTestCase):
     """Tests for the login view."""
-    def test_login_unconfirmed(self):
-        """Logging in as unconfirmed user should redirect to confirmation."""
+    def test_login(self):
+        """Logging in should redirect to the dashboard."""
         self._create_new_account()
 
         response = self.client.post('/accounts/login/', {
@@ -64,4 +64,4 @@ class LoginTests(AccountTestCase):
             'password': 'test123',
         })
 
-        self.assertRedirects(response, '/accounts/confirm/')
+        self.assertRedirects(response, '/dashboard/')
