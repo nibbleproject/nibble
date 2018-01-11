@@ -75,9 +75,9 @@ then
 
     exec gunicorn \
         --workers=2 \
-        --worker-class=gaiohttp \
+        --worker-class=gthread \
         --access-logfile - \
-        --bind=0.0.0.0:5000 \
+        --bind=0.0.0.0:$PORT \
         nibble.wsgi
 else
     exec "$@"

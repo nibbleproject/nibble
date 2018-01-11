@@ -3,11 +3,14 @@ FROM python:3.6.3
 ENV DJANGO_SETTINGS_MODULE=nibble.settings.production
 ENV DATABASE_NAME=nibble
 ENV DATABASE_USER=test
+ENV PORT=5000
 
-COPY ./requirements.txt /app/requirements.txt
+RUN apt-get update && apt-get -y install postgresql-client && pip install pipenv
+
+COPY ["./Pipfile.lock", "./Pipfile", "/app/"]
 WORKDIR /app/
 
-RUN apt-get update && apt-get -y install postgresql-client && pip install -r requirements.txt
+RUN pipenv install --system
 
 COPY . /app/
 
