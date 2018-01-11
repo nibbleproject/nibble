@@ -60,6 +60,30 @@ hosted instance, provide some sort of support to self-hosters, and have a huge I
 
 We could call this stage "Beta", but everything on the Internet is always in Beta.
 
+## Development
+
+### Installing dependencies
+
+Nibble uses [pipenv](https://docs.pipenv.org) to manage dependencies. To get started, install pipenv:
+
+```bash
+$ pip install pipenv
+```
+
+Then, install dependencies and create a virtualenv all at once:
+
+```bash
+$ pipenv install --dev
+```
+
+To drop into a shell inside the virtualenv:
+
+```bash
+$ pipenv shell
+```
+
+Learn more about pipenv by [reading the docs](https://docs.pipenv.org).
+
 ## Deploying
 
 ### Heroku

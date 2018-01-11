@@ -1,7 +1,0 @@
-coverage
-coveralls
-pycodestyle
-splinter[django]
-selenium
-requests
-behave_django
