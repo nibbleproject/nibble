@@ -7,12 +7,13 @@ jobs:
       - checkout
       - run:
           name: Install requirements
-          command: |
-            sudo pip install pipenv
-            sudo pipenv install --system --dev
+          command: sudo pipenv install --system --dev
       - run:
           name: Run tests
           command: CI=true make test
+      - run:
+          name: Safety check
+          command: pipenv check
       - save_cache:
           key: coverage-{{ .Revision }}
           paths:
