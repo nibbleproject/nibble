@@ -7,7 +7,7 @@ name = "pypi"
 
 [packages]
 
-Django = "==1.11.7"
+Django = ">=1.11.19, <=1.12"
 dj-database-url = "==0.3.0"
 gunicorn = "==19.7.1"
 "psycopg2" = "==2.7.3.2"
