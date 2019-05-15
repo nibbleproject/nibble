@@ -8,4 +8,4 @@ def step_impl(context):
 
 @then(u'the page should load')
 def step_impl(context):
-    assert context.get_browser().status_code.is_success()
+    assert 'Nibble' in context.get_browser().title
