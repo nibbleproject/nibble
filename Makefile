@@ -19,12 +19,12 @@ unit-test:
 	coverage report
 
 functional-test:
-	python manage.py behave
+	python manage.py behave -e smoke.feature
 
 test: lint unit-test functional-test
 
 smoke:
-	REMOTE_URL=$(REMOTE_URL) python manage.py behave features/smoke.feature 
+	REMOTE_URL=$(REMOTE_URL) python manage.py behave -i smoke.feature
 
 docs:
 	cd docs/; make html

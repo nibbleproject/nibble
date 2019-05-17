@@ -21,9 +21,10 @@ def before_all(context):
             browser = context.browser = Browser('chrome', options=options)
 
         return browser
-
-    context.remote_url = os.environ.get('REMOTE_URL', 'http://localhost:5000')
     context.get_browser = get_browser
+
+    # Remote URL for smoke testing
+    context.remote_url = os.environ.get('REMOTE_URL', 'http://localhost:5000')
 
 
 def _debug():
