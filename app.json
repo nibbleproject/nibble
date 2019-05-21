@@ -12,6 +12,10 @@
     "SUPERUSER_NAME": {
       "description": "Username for the initial superuser."
     },
+    "SENTRY_URL": {
+      "description": "Reporting URL for Sentry.",
+      "required": false
+    },
     "SUPERUSER_EMAIL": {
       "description": "Email for the initial superuser."
     },
