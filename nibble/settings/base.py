@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sentry_sdk
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -110,3 +111,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Sentry
+if 'SENTRY_URL' in os.environ:
+    sentry_sdk.init(os.environ['SENTRY_URL'])

@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 Django = ">=1.11.19, <=1.12"
 dj-database-url = "==0.3.0"
 gunicorn = "==19.7.1"
@@ -14,10 +11,9 @@ gunicorn = "==19.7.1"
 whitenoise = "==1.0.6"
 behave-django = "==1.0.0"
 django-allauth = "==0.34.0"
-
+sentry-sdk = "*"
 
 [dev-packages]
-
 coverage = "*"
 coveralls = "*"
 pycodestyle = "*"
@@ -26,7 +22,5 @@ selenium = "*"
 requests = "*"
 behave-django = "*"
 
-
 [requires]
-
 python_version = "3.6"
