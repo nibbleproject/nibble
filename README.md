@@ -87,7 +87,7 @@ Learn more about pipenv by [reading the docs](https://docs.pipenv.org).
 
 ### Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy) [![Join the chat at https://gitter.im/nibbleproject/nibble](https://badges.gitter.im/nibbleproject/nibble.svg)](https://gitter.im/nibbleproject/nibble?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### Docker
 
