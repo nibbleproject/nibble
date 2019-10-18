@@ -6,4 +6,4 @@ DEBUG = False
 
 DATABASES['default'] = dj_database_url.config()
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
