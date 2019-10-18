@@ -3,6 +3,7 @@
 [![CircleCI](https://circleci.com/gh/nibbleproject/nibble/tree/master.svg?style=svg)](https://circleci.com/gh/nibbleproject/nibble/tree/master)
 [![Coveralls](https://img.shields.io/coveralls/nibbleproject/nibble.svg)](https://coveralls.io/r/nibbleproject/nibble)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/nibbleproject/nibble.svg)](https://scrutinizer-ci.com/g/nibbleproject/nibble/)
+[![Join the chat at https://gitter.im/nibbleproject/nibble](https://badges.gitter.im/nibbleproject/nibble.svg)](https://gitter.im/nibbleproject/nibble)
 
 A webcomics platform that tries its best to be easy to get going with.
 
