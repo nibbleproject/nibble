@@ -11,9 +11,6 @@ jobs:
       - run:
           name: Run tests
           command: CI=true make test
-      - run:
-          name: Safety check
-          command: pipenv check
       - save_cache:
           key: coverage-{{ .Revision }}
           paths:
