@@ -28,7 +28,7 @@ jobs:
           name: Run integration tests
           command: |
             set -x
-            docker-compose up -d
+            DATABASE_USER=nibble DATABASE_PASSWORD=nibble docker-compose up -d
             CI=true make smoke
   coverage:
     docker:
