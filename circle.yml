@@ -15,6 +15,21 @@ jobs:
           key: coverage-{{ .Revision }}
           paths:
             - .coverage
+  integration:
+    docker:
+      - image: nibbleproject/nibble-ci
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install requirements
+          command: sudo pipenv install --system --dev
+      - run:
+          name: Run integration tests
+          command: |
+            set -x
+            docker-compose up -d
+            docker-compose stop
   coverage:
     docker:
       - image: nibbleproject/nibble-ci
@@ -75,6 +90,7 @@ workflows:
   master:
     jobs:
       - test
+      - integration
       - coverage:
           requires:
             - test
@@ -84,6 +100,7 @@ workflows:
       - deploy_staging:
           requires:
             - test
+            - integration
           filters:
             branches:
               only: master

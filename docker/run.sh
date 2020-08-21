@@ -4,11 +4,16 @@ if [ "$1" = 'start' ];
 then
 	if [ -n "$DATABASE_URL" ]; then
 
-		echo "There's a database url already...???"
+		echo "Found a database URL, skipping setup."
 
 	elif [ -n "$POSTGRES_PORT_5432_TCP_ADDR" ]; then
 
 		echo 'We got postgres!!!!'
+
+		if [ -z "$DATABASE_USER" ]; then
+			echo 'No application database user defined. Stopping.'
+			exit 1
+		fi
 
 		if [ -z "$DATABASE_PASSWORD" ]; then
 			echo 'No application database password defined. Stopping.'
@@ -63,7 +68,7 @@ then
 		export DATABASE_URL="postgres://$DATABASE_USER:$DATABASE_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/$DATABASE_NAME"
 
 	else
-		echo 'No database ¯\_(ツ)_/¯'
+		echo 'No database defined, stopping. ¯\_(ツ)_/¯'
 		exit 1
 	fi
 

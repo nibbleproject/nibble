@@ -1,6 +1,7 @@
 web:
   build: .
   environment:
+    - DATABASE_USER
     - DATABASE_PASSWORD
   links:
     - postgres
@@ -8,3 +9,6 @@ web:
     - "5000:5000"
 postgres:
   image: postgres
+  environment:
+    - POSTGRES_USER=test
+    - POSTGRES_PASSWORD=test
