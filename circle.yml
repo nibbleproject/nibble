@@ -39,6 +39,9 @@ jobs:
           keys:
             - coverage-{{ .Revision }}
       - run:
+          name: Install requirements
+          command: sudo pipenv install --system --dev
+      - run:
           name: Report Coverage
           command: 
             coveralls
@@ -94,9 +97,6 @@ workflows:
       - coverage:
           requires:
             - test
-          filters:
-            branches:
-              only: master
       - deploy_staging:
           requires:
             - test
