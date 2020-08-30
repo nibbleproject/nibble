@@ -15,7 +15,7 @@ jobs:
           key: coverage-{{ .Revision }}
           paths:
             - .coverage
-  integration:
+  image_test:
     docker:
       - image: nibbleproject/nibble-ci
     steps:
@@ -25,11 +25,11 @@ jobs:
           name: Install requirements
           command: sudo pipenv install --system --dev
       - run:
-          name: Run integration tests
+          name: Smoke test
           command: |
             set -x
-            DATABASE_USER=nibble DATABASE_PASSWORD=nibble docker-compose up -d
-            CI=true make smoke
+            docker-compose up -d
+            docker run -it --network project_default nibbleproject/nibble-ci curl --retry 10 --retry-delay 1 --retry-connrefused web:5000
   coverage:
     docker:
       - image: nibbleproject/nibble-ci
@@ -90,7 +90,7 @@ workflows:
   master:
     jobs:
       - test
-      - integration
+      - image_test
       - coverage:
           requires:
             - test
@@ -100,7 +100,7 @@ workflows:
       - deploy_staging:
           requires:
             - test
-            - integration
+            - image_test
           filters:
             branches:
               only: master

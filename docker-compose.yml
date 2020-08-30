@@ -1,14 +1,17 @@
-web:
-  build: .
-  environment:
-    - DATABASE_USER
-    - DATABASE_PASSWORD
-  links:
-    - postgres
-  ports:
-    - "5000:5000"
-postgres:
-  image: postgres
-  environment:
-    - POSTGRES_USER=test
-    - POSTGRES_PASSWORD=test
+# Docker Compose file for local nibble development.
+
+version: "3.4"
+
+services:
+  web:
+    build: .
+    environment:
+      DATABASE_URL: postgres://nibble:nibble@postgres:5432/nibble
+    ports:
+      - "5000:5000"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: nibble
+      POSTGRES_PASSWORD: nibble
