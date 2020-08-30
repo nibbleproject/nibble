@@ -1,8 +1,15 @@
-version: 2
-jobs:
-  test:
+version: 2.1
+
+executors:
+  builder:
+    environment:
+      IMAGE_NAME: nibbleproject/nibble
     docker:
       - image: nibbleproject/nibble-ci
+
+jobs:
+  test:
+    executor: builder
     steps:
       - checkout
       - run:
@@ -16,28 +23,37 @@ jobs:
           command:
             coveralls
   build_image:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Build image
-          command: docker build -t nibbleproject/nibble:latest .
+          command: docker build -t $IMAGE_NAME .
+      - run:
+          name: Archive image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
   push_image:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load image
+          command: docker load -i /tmp/workspace/image.tar
       - run:
           name: Push image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push nibbleproject/nibble:latest
+            docker push $IMAGE_NAME:latest
   image_test:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - setup_remote_docker
@@ -51,8 +67,7 @@ jobs:
             docker-compose up -d
             docker run -it --network project_default nibbleproject/nibble-ci curl --retry 10 --retry-delay 1 --retry-connrefused web:5000
   deploy_staging:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - run:
@@ -72,8 +87,7 @@ jobs:
             heroku git:remote --app nibbleproject-staging --ssh-git
             git push heroku master
   deploy_production:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - run:
