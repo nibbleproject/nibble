@@ -15,6 +15,21 @@ jobs:
           key: coverage-{{ .Revision }}
           paths:
             - .coverage
+  image_test:
+    docker:
+      - image: nibbleproject/nibble-ci
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install requirements
+          command: sudo pipenv install --system --dev
+      - run:
+          name: Smoke test
+          command: |
+            set -x
+            docker-compose up -d
+            docker run -it --network project_default nibbleproject/nibble-ci curl --retry 10 --retry-delay 1 --retry-connrefused web:5000
   coverage:
     docker:
       - image: nibbleproject/nibble-ci
@@ -75,6 +90,7 @@ workflows:
   master:
     jobs:
       - test
+      - image_test
       - coverage:
           requires:
             - test
@@ -84,6 +100,7 @@ workflows:
       - deploy_staging:
           requires:
             - test
+            - image_test
           filters:
             branches:
               only: master
