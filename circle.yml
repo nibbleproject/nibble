@@ -95,17 +95,17 @@ workflows:
             - image_test
           filters:
             branches:
-              only: master
+              only: main
       - hold:
           type: approval
           requires:
             - deploy_staging
           filters:
             branches:
-              only: master
+              only: main
       - deploy_production:
           requires:
             - hold
           filters:
             branches:
-              only: master
+              only: main
