@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Configure Heroku
           command: |
-            cat > ~/.netrc << EOF
+            cat > ~/.netrc \<< EOF
             machine api.heroku.com
               login $HEROKU_LOGIN
               password $HEROKU_AUTH_TOKEN
@@ -93,7 +93,7 @@ jobs:
       - run:
           name: Configure Heroku
           command: |
-            cat > ~/.netrc << EOF
+            cat > ~/.netrc \<< EOF
             machine api.heroku.com
               login $HEROKU_LOGIN
               password $HEROKU_AUTH_TOKEN
