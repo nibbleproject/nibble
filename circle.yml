@@ -15,6 +15,15 @@ jobs:
           name: Report Coverage
           command:
             coveralls
+  build_image:
+    docker:
+      - image: nibbleproject/nibble-ci
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build image
+          command: docker build -t nibbleproject/nibble:latest .
   image_test:
     docker:
       - image: nibbleproject/nibble-ci
@@ -78,6 +87,7 @@ workflows:
   main:
     jobs:
       - test
+      - build_image
       - image_test
       - deploy_staging:
           requires:
