@@ -24,6 +24,17 @@ jobs:
       - run:
           name: Build image
           command: docker build -t nibbleproject/nibble:latest .
+  push_image:
+    docker:
+      - image: nibbleproject/nibble-ci
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Push image
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push nibbleproject/nibble:latest
   image_test:
     docker:
       - image: nibbleproject/nibble-ci
@@ -89,10 +100,17 @@ workflows:
       - test
       - build_image
       - image_test
+      - push_image:
+          requires:
+            - build_image
+            - image_test
+          filters:
+            branches:
+              only: main
       - deploy_staging:
           requires:
             - test
-            - image_test
+            - push_image
           filters:
             branches:
               only: main
