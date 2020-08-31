@@ -120,7 +120,7 @@ workflows:
             - image_test
           filters:
             branches:
-              only: ci-docker
+              only: main
       - deploy_staging:
           requires:
             - test
