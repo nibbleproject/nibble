@@ -85,7 +85,7 @@ jobs:
           name: Deploy to staging
           command: |
             heroku git:remote --app nibbleproject-staging --ssh-git
-            git push heroku master
+            git push heroku main
   deploy_production:
     executor: builder
     steps:
