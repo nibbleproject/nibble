@@ -1,8 +1,15 @@
-version: 2
-jobs:
-  test:
+version: 2.1
+
+executors:
+  builder:
+    environment:
+      IMAGE_NAME: nibbleproject/nibble
     docker:
       - image: nibbleproject/nibble-ci
+
+jobs:
+  test:
+    executor: builder
     steps:
       - checkout
       - run:
@@ -15,9 +22,38 @@ jobs:
           name: Report Coverage
           command:
             coveralls
+  build_image:
+    executor: builder
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build image
+          command: docker build -t $IMAGE_NAME .
+      - run:
+          name: Archive image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+  push_image:
+    executor: builder
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Push image
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest
   image_test:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - setup_remote_docker
@@ -31,14 +67,13 @@ jobs:
             docker-compose up -d
             docker run -it --network project_default nibbleproject/nibble-ci curl --retry 10 --retry-delay 1 --retry-connrefused web:5000
   deploy_staging:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - run:
           name: Configure Heroku
           command: |
-            cat > ~/.netrc << EOF
+            cat > ~/.netrc \<< EOF
             machine api.heroku.com
               login $HEROKU_LOGIN
               password $HEROKU_AUTH_TOKEN
@@ -52,14 +87,13 @@ jobs:
             heroku git:remote --app nibbleproject-staging --ssh-git
             git push heroku master
   deploy_production:
-    docker:
-      - image: nibbleproject/nibble-ci
+    executor: builder
     steps:
       - checkout
       - run:
           name: Configure Heroku
           command: |
-            cat > ~/.netrc << EOF
+            cat > ~/.netrc \<< EOF
             machine api.heroku.com
               login $HEROKU_LOGIN
               password $HEROKU_AUTH_TOKEN
@@ -78,24 +112,32 @@ workflows:
   main:
     jobs:
       - test
+      - build_image
       - image_test
-      - deploy_staging:
+      - push_image:
           requires:
-            - test
+            - build_image
             - image_test
           filters:
             branches:
-              only: master
+              only: main
+      - deploy_staging:
+          requires:
+            - test
+            - push_image
+          filters:
+            branches:
+              only: main
       - hold:
           type: approval
           requires:
             - deploy_staging
           filters:
             branches:
-              only: master
+              only: main
       - deploy_production:
           requires:
             - hold
           filters:
             branches:
-              only: master
+              only: main
