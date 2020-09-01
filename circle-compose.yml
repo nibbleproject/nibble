@@ -1,0 +1,17 @@
+# Docker Compose file for testing on circle ci
+
+version: "3.4"
+
+services:
+  web:
+    image: nibbleproject/nibble
+    environment:
+      DATABASE_URL: postgres://nibble:nibble@postgres:5432/nibble
+    ports:
+      - "5000:5000"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: nibble
+      POSTGRES_PASSWORD: nibble
