@@ -52,7 +52,7 @@ jobs:
           command: |
             set -x
             docker-compose -f circle-compose.yml up -d
-            docker run -it --network project_default nibbleproject/nibble-ci curl --retry 10 --retry-delay 1 --retry-connrefused web:5000
+            docker run -it --network project_default -v $PWD:/project --workdir project nibbleproject/nibble-ci make docker-smoke
   push_image:
     executor: builder
     steps:
