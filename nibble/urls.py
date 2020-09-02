@@ -1,11 +1,11 @@
-from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import include, path
 
 import comics.urls
 
 
 urlpatterns = [
-    url(r'^', include(comics.urls)),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    path('', include(comics.urls)),
+    path('accounts/', include('accounts.urls')),
+    path('admin/', admin.site.urls),
 ]
