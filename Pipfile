@@ -10,7 +10,7 @@ gunicorn = "~=19.7"
 "psycopg2" = "~=2.8.0"
 whitenoise = "~=4.1"
 behave-django = "~=1.0"
-django-allauth = "~=0.34"
+django-allauth = "~=0.34.0"
 sentry-sdk = "*"
 
 [dev-packages]
