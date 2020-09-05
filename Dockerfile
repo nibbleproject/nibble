@@ -1,4 +1,4 @@
-FROM python:3.6.4
+FROM python:3.8.5
 
 ENV DJANGO_SETTINGS_MODULE=nibble.settings.production
 ENV DATABASE_NAME=nibble
