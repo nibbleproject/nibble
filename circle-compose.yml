@@ -22,8 +22,9 @@ services:
       CI: "True"
       REMOTE_URL: "http://web:5000"
     volumes:
-      - './:/home/ci'
+      - "./:/project"
+    working_dir: "/project"
     command:
       - "/bin/bash"
       - "-c"
-      - "pipenv install --system --dev; make smoke"
+      - "pipenv install --system --dev && make smoke"
