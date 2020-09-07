@@ -18,13 +18,7 @@ services:
 
   ci:
     image: nibbleproject/nibble-ci
-    environment:
-      CI: "True"
-      REMOTE_URL: "http://web:5000"
-    volumes:
-      - "./:/project"
-    working_dir: "/project"
     command:
       - "/bin/bash"
       - "-c"
-      - "pipenv install --system --dev && make smoke"
+      - "curl --retry 10 --retry-connrefused http://web:5000"

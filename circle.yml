@@ -51,8 +51,8 @@ jobs:
           name: Smoke test
           command: |
             set -x
-            docker-compose -f circle-compose.yml up -d web postgres
-            docker-compose -f circle-compose.yml run ci
+            docker-compose -f .circle/docker-compose.yml up -d web postgres
+            docker-compose -f .circle/docker-compose.yml run ci
   push_image:
     executor: builder
     steps:
