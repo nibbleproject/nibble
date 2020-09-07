@@ -37,6 +37,22 @@ jobs:
           root: .
           paths:
             - ./image.tar
+  test_image:
+    executor: builder
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Smoke test
+          command: |
+            set -x
+            docker-compose -f .circle/docker-compose.yml up -d web postgres
+            docker-compose -f .circle/docker-compose.yml run ci
   push_image:
     executor: builder
     steps:
@@ -52,20 +68,6 @@ jobs:
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push $IMAGE_NAME:latest
-  image_test:
-    executor: builder
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Install requirements
-          command: sudo pipenv install --system --dev
-      - run:
-          name: Smoke test
-          command: |
-            set -x
-            docker-compose up -d
-            docker run -it --network project_default nibbleproject/nibble-ci curl --retry 10 --retry-delay 1 --retry-connrefused web:5000
   deploy_staging:
     executor: builder
     steps:
@@ -113,11 +115,13 @@ workflows:
     jobs:
       - test
       - build_image
-      - image_test
+      - test_image:
+          requires:
+            - build_image
       - push_image:
           requires:
             - build_image
-            - image_test
+            - test_image
           filters:
             branches:
               only: main
