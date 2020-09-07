@@ -15,3 +15,15 @@ services:
     environment:
       POSTGRES_USER: nibble
       POSTGRES_PASSWORD: nibble
+
+  ci:
+    image: nibbleproject/nibble-ci
+    environment:
+      CI: "True"
+      REMOTE_URL: "http://web:5000"
+    volumes:
+      - './:/home/ci'
+    command:
+      - "/bin/bash"
+      - "-c"
+      - "pipenv install --system --dev; make smoke"

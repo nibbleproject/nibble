@@ -51,8 +51,8 @@ jobs:
           name: Smoke test
           command: |
             set -x
-            docker-compose -f circle-compose.yml up -d
-            docker run -it --network project_default -v $PWD:/project --workdir project nibbleproject/nibble-ci make docker-smoke
+            docker-compose -f circle-compose.yml up -d web postgres
+            docker-compose -f circle-compose.yml run ci
   push_image:
     executor: builder
     steps:
