@@ -1,17 +1,10 @@
 Feature: Admin account
-    As an artist
+    As an admin
     I want to have access to an admin account
-    so that I can manage my comics.
+    so that I can manage the service.
 
     Scenario: logging in
         Given an admin user exists
-        When I go to the admin page
+        When I go to the path /accounts/login
         And I enter my username and password
-        Then I should be logged in as an admin
-
-    Scenario: email
-        Given an admin user exists
-        When I go to the admin page
-        And I enter my username and password
-        And I go to my user page
-        Then I should see the email address I chose
+        Then I should be logged in

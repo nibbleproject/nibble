@@ -4,7 +4,7 @@ Feature: Creating an account
     so I can post comics.
 
     Scenario: signing up
-        When I go to the home page
+        When I go to the path /
         And I click the "Sign Up" link
         And I fill out the sign up form
         And I click the "Continue" button
@@ -13,7 +13,7 @@ Feature: Creating an account
         And I should be taken to /dashboard/
 
      Scenario: signing up without an email
-        When I go to the home page
+        When I go to the path /
         And I click the "Sign Up" link
         And I fill out the sign up form without an email
         And I click the "Continue" button
@@ -29,5 +29,6 @@ Feature: Creating an account
 
      Scenario: logging in
         Given a confirmed account
-        When I log in
+        When I go to the path /accounts/login
+        And I enter my username and password
         Then I should be taken to /dashboard/
