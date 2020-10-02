@@ -6,6 +6,11 @@ def step_impl(context, path):
     context.get_browser().visit(context.base_url + path)
 
 
+@then(r'I should be taken to {path}')
+def step_impl(context, path):
+    assert context.get_browser().url.endswith(path)
+
+
 @when(r'I click the "{link}" link')
 def step_impl(context, link):
     context.get_browser().click_link_by_text(link)

@@ -106,11 +106,6 @@ def step_impl(context):
     EmailAddress.objects.filter(user=context.user, verified=True).exists()
 
 
-@then(r'I should be taken to {url}')
-def step_impl(context, url):
-    assert context.get_browser().url.endswith(url)
-
-
 @then(r'I should see a message saying "{text}"')
 def step_impl(context, text):
     assert text in context.get_browser().find_by_id('messages').text

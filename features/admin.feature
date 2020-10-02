@@ -7,4 +7,4 @@ Feature: Admin account
         Given an admin user exists
         When I go to the path /accounts/login
         And I enter my username and password
-        Then I should be logged in
+        Then I should be taken to /dashboard/
