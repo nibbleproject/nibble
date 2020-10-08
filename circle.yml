@@ -30,6 +30,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          working_directory: ./frontend
+          command: |
+            yarn install
+      - run:
           name: Run tests
           working_directory: ./frontend
           command: |
