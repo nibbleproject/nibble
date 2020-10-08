@@ -1,6 +1,9 @@
 version: 2.1
 
 executors:
+  builder_frontend:
+    docker:
+      - image: nibbleproject/nibble-ci-frontend
   builder:
     environment:
       IMAGE_NAME: nibbleproject/nibble
@@ -8,7 +11,7 @@ executors:
       - image: nibbleproject/nibble-ci
 
 jobs:
-  test:
+  test_backend:
     executor: builder
     steps:
       - checkout
@@ -22,6 +25,21 @@ jobs:
           name: Report Coverage
           command:
             coveralls
+  test_frontend:
+    executor: builder_frontend
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          working_directory: ./frontend
+          command: |
+            yarn install
+      - run:
+          name: Run tests
+          working_directory: ./frontend
+          command: |
+            yarn test:unit
+            yarn test:e2e --headless
   build_image:
     executor: builder
     steps:
@@ -113,7 +131,8 @@ workflows:
   version: 2
   main:
     jobs:
-      - test
+      - test_backend
+      - test_frontend
       - build_image
       - test_image:
           requires:
@@ -127,7 +146,9 @@ workflows:
               only: main
       - deploy_staging:
           requires:
-            - test
+            - test_frontend
+            - test_backend
+            - test_image
             - push_image
           filters:
             branches:

@@ -1,19 +1,31 @@
-from behave import when, then
+from behave import when, then, given
 from django.core import mail
 from django.contrib.auth.models import User
 from allauth.account.models import EmailConfirmationHMAC, EmailAddress
 
 
-USERNAME = 'test'
-EMAIL = 'test@test.com'
-PASSWORD = 'test123'
+def create_user(context, username, password, email, **options):
+    """Create a user account."""
+    context.username = username
+    context.password = password
+    context.email = email
+
+    context.user = User.objects.create_user(
+        username=context.username,
+        password=context.password,
+        email=context.email,
+        **options,
+    )
 
 
 @given(r'an unconfirmed account')
 def step_impl(context):
-    context.user = User.objects.create(username=USERNAME, email=EMAIL)
-    context.user.set_password(PASSWORD)
-    context.user.save()
+    create_user(
+        context,
+        username='test',
+        password='test123',
+        email='test@test.com',
+    )
 
     email = EmailAddress.objects.create(user=context.user, verified=False)
     email.send_confirmation()
@@ -21,9 +33,12 @@ def step_impl(context):
 
 @given(r'a confirmed account')
 def step_impl(context):
-    context.user = User.objects.create(username=USERNAME, email=EMAIL)
-    context.user.set_password(PASSWORD)
-    context.user.save()
+    create_user(
+        context,
+        username='test',
+        password='test123',
+        email='test@test.com',
+    )
 
     EmailAddress.objects.create(user=context.user, verified=True)
 
@@ -33,38 +48,32 @@ def step_impl(context):
     browser = context.get_browser()
     browser.visit(context.base_url)
     browser.click_link_by_text('Log In')
-    browser.find_by_name('login').fill(USERNAME)
-    browser.find_by_name('password').fill(PASSWORD)
+    browser.find_by_name('login').fill(context.username)
+    browser.find_by_name('password').fill(context.password)
     browser.find_by_value('Log In').click()
-
-
-@when(r'I click the "{link}" link')
-def step_impl(context, link):
-    context.get_browser().click_link_by_text(link)
 
 
 @when(r'I fill out the sign up form')
 def step_impl(context):
     browser = context.get_browser()
 
-    browser.find_by_name('username').fill(USERNAME)
-    browser.find_by_name('email').fill(EMAIL)
-    browser.find_by_name('password1').fill(PASSWORD)
-    browser.find_by_name('password2').fill(PASSWORD)
+    context.username = 'test'
+    context.password = 'test123'
+    context.email = 'test@test.com'
+
+    browser.find_by_name('username').fill(context.username)
+    browser.find_by_name('email').fill(context.email)
+    browser.find_by_name('password1').fill(context.password)
+    browser.find_by_name('password2').fill(context.password)
 
 
 @when(r'I fill out the sign up form without an email')
 def step_impl(context):
     browser = context.get_browser()
 
-    browser.find_by_name('username').fill(USERNAME)
-    browser.find_by_name('password1').fill(PASSWORD)
-    browser.find_by_name('password2').fill(PASSWORD)
-
-
-@when(r'I click the "{button}" button')
-def step_impl(context, button):
-    context.get_browser().find_by_value(button).click()
+    browser.find_by_name('username').fill('test')
+    browser.find_by_name('password1').fill('hello')
+    browser.find_by_name('password2').fill('hello')
 
 
 @when(r'I go to the email confirmation URL')
@@ -79,7 +88,7 @@ def step_impl(context):
 
 @then(r'a new user should be created')
 def step_impl(context):
-    assert User.objects.get(username=USERNAME) is not None
+    assert User.objects.get(username=context.username) is not None
 
 
 @then(r'no new user should be created')
@@ -95,11 +104,6 @@ def step_impl(context):
 @then(r'my email should be confirmed')
 def step_impl(context):
     EmailAddress.objects.filter(user=context.user, verified=True).exists()
-
-
-@then(r'I should be taken to {url}')
-def step_impl(context, url):
-    assert context.get_browser().url.endswith(url)
 
 
 @then(r'I should see a message saying "{text}"')
