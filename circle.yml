@@ -1,6 +1,9 @@
 version: 2.1
 
 executors:
+  builder_frontend:
+    docker:
+      - image: nibbleproject/nibble-ci-frontend
   builder:
     environment:
       IMAGE_NAME: nibbleproject/nibble
@@ -23,7 +26,7 @@ jobs:
           command:
             coveralls
   test_frontend:
-    executor: builder
+    executor: builder_frontend
     steps:
       - checkout
       - run:
