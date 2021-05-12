@@ -4,6 +4,7 @@
   "website": "https://nibbleproject.com",
   "repository": "https://github.com/nibbleproject/nibble",
   "success_url": "/",
+  "stack": "heroku-20",
   "addons": [
     "heroku-postgresql"
   ],
